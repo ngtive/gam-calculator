@@ -8,13 +8,24 @@ const creditType = ref('gam')
 
 const calcStore = useCalculateStore()
 
+function handleDeleteButton() {
+  Object.assign(calcStore.committed, {
+    name: '',
+    totalCredit: 0,
+    rate: 36,
+    creditType: 'gam'
+  })
+}
+
 </script>
 
 <template>
   <div class="bg-white rounded-[16px] p-[16px] w-full">
     <div class="flex w-full justify-between items-center mb-[26px]">
       <h3 class="text-[18px] font-[600]">متعهد</h3>
-      <DeleteIcon />
+      <button type="button" @click="handleDeleteButton">
+        <DeleteIcon />
+      </button>
     </div>
     <div class="flex gap-4 w-full">
       <div class="flex flex-col gap-2 w-1/4">
