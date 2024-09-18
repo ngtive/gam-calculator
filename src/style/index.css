@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+    :root {
+        --neutral-background: #F6F6F6;
+    }
+
     @font-face {
         font-family: Yekan Bakh;
         font-style: normal;
@@ -65,5 +69,22 @@
         font-weight: 950;
         src: url('/woff/YekanBakh-ExtraBlack.woff') format('woff'),
         url('/woff2/YekanBakh-ExtraBlack.woff2') format('woff2');
+    }
+}
+
+@layer tailwind-base, tailwind-utilities;
+
+@layer tailwind-base {
+    @tailwind base;
+}
+
+@layer tailwind-utilities {
+    @tailwind components;
+    @tailwind utilities;
+}
+
+@layer primevue {
+    .p-inputtext {
+        @apply !rounded-[8px] !p-[8px];
     }
 }

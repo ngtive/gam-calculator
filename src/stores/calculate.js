@@ -2,18 +2,20 @@ import { defineStore } from 'pinia'
 import { computed, reactive } from 'vue'
 
 const useCalculateStore = defineStore('calculate-store', () => {
-  const applicants = reactive([
-    {
-      name: '',
-      counter: 0,
-      due: 0,
-      rate: 0,
-      government: 0,
-      transfer: 0,
-      hold: 0,
-      totalCredit: 0
-    }
-  ])
+  const state = reactive({
+    applicants: [
+      {
+        name: '',
+        counter: 1,
+        due: 0,
+        rate: 0,
+        government: 0,
+        transfer: 0,
+        hold: 0,
+        totalCredit: 0
+      }
+    ]
+  })
   const committed = reactive({
     name: '',
     totalCredit: 0,
@@ -24,9 +26,9 @@ const useCalculateStore = defineStore('calculate-store', () => {
 
   const calculations = computed(() => {
 
-    const applicantsCopy = [...applicants];
+    const applicantsCopy = [...state.applicants];
     if (applicantsCopy[0].government > 0)
-      applicantsCopy[0].totalCredit = committed.totalCredit - (committed.totalCredit * (applicantsCopy[0].government / 100))
+      applicantsCopy[0].totalCredit = committed.totalCredit - applicantsCopy[0].government
     else
       applicantsCopy[0].totalCredit = committed.totalCredit
 
@@ -37,7 +39,7 @@ const useCalculateStore = defineStore('calculate-store', () => {
       if (applicantsCopy[idx]?.government > 0) {
         prevCredit =  prevCredit - (applicantsCopy[idx - 1].totalCredit * (applicantsCopy[idx - 1].rate / 100));
         applicantsCopy[idx].totalCredit = prevCredit * (applicantsCopy[idx - 1].transfer / 100)
-        applicantsCopy[idx].totalCredit -= applicantsCopy[idx].totalCredit * (applicantsCopy[idx].government / 100)
+        applicantsCopy[idx].totalCredit = applicantsCopy[idx].totalCredit - applicantsCopy[idx].government
 
       } else {
         prevCredit =  prevCredit - (applicantsCopy[idx - 1].totalCredit * (applicantsCopy[idx - 1].rate / 100));
@@ -52,9 +54,9 @@ const useCalculateStore = defineStore('calculate-store', () => {
     }})
 
   const addRawApplicant = () => {
-    applicants.push({
+    state.applicants.push({
       name: '',
-      counter: applicants[applicants.length - 1].counter + 1,
+      counter: state.applicants[state.applicants.length - 1].counter + 1,
       due: 0,
       rate: 0,
       government: 0,
@@ -62,14 +64,21 @@ const useCalculateStore = defineStore('calculate-store', () => {
       hold: 0,
       totalCredit: 0
     })
+  }
 
+  const deleteRawApplicant = (counterId) => {
+    // state.applicants = state.applicants.filter(applicant => applicant.counter !== counterId);
+    // state.applicants = state.applicants.map(i => {
+    //   console.log(i)
+    // })
   }
 
 
   return {
     addRawApplicant,
+    deleteRawApplicant,
     calculations,
-    applicants,
+    state,
     committed
   }
 })

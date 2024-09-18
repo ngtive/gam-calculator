@@ -1,12 +1,11 @@
 <script setup>
 
-import { Plus } from 'lucide-vue-next'
 </script>
 
 <template>
-  <div class="bg-green-500 h-8 w-8 rounded-full flex items-center justify-center cursor-pointer transition-[background-color] hover:bg-secondary-foreground">
-    <Plus color="#FFF"/>
-  </div>
+  <button class="bg-transparent border border-[#0B5E64] rounded-[8px] py-[5px] px-[24px] text-[16px] font-[600] text-[#0B5E64] transition-all hover:bg-[#0B5E64] hover:text-white">
+    افزودن متقاضی جدید
+  </button>
 </template>
 
 <style scoped>
