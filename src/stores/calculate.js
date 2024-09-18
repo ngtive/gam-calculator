@@ -66,17 +66,9 @@ const useCalculateStore = defineStore('calculate-store', () => {
     })
   }
 
-  const deleteRawApplicant = (counterId) => {
-    // state.applicants = state.applicants.filter(applicant => applicant.counter !== counterId);
-    // state.applicants = state.applicants.map(i => {
-    //   console.log(i)
-    // })
-  }
-
 
   return {
     addRawApplicant,
-    deleteRawApplicant,
     calculations,
     state,
     committed
